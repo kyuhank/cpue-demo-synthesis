@@ -8,7 +8,7 @@ OUT = Path('outputs')
 rows = list(csv.DictReader((OUT / 'summary.csv').open()))
 series = list(csv.DictReader((OUT / 'biomass.csv').open()))
 colors = {'vessel_adjusted': '#007c83', 'year_only': '#d27547'}
-labels = {'vessel_adjusted': 'Year + vessel', 'year_only': 'Year only'}
+labels = {'vessel_adjusted': 'CPUE A', 'year_only': 'CPUE B'}
 def plot(field, filename, label):
     xmin, xmax = min(int(x['year']) for x in series), max(int(x['year']) for x in series)
     ymax = max(1.1, max(float(x[field]) for x in series) * 1.08)
@@ -34,7 +34,7 @@ def plot(field, filename, label):
         parts.append(f'<polyline points="{points}" fill="none" stroke="{colors[choice]}" stroke-width="4"{dash}/>')
     parts.append(f'<text x="65" y="25" font-family="sans-serif" font-size="20" fill="#132f42">{label}</text>')
     for i, case in enumerate(groups):
-        label_text = labels[case['choice']] + (f" · M={float(case['M']):.2f}" if field != 'observed_index' else '')
+        label_text = labels[case['choice']] + (' · Assessment '+('2' if case['setting']=='higher_M' else '1') if field != 'observed_index' else '')
         x, y = 65 + (i % 2)*330, 333 + (i//2)*26
         dash = ' stroke-dasharray="6 4"' if field != 'observed_index' and case['setting'] == 'higher_M' else ''
         parts.append(f'<path d="M{x},{y-5}h26" stroke="{colors[case["choice"]]}" stroke-width="3"{dash}/><text x="{x+35}" y="{y}" font-family="sans-serif" font-size="15" fill="{colors[case["choice"]]}">{label_text}</text>')
@@ -42,5 +42,5 @@ def plot(field, filename, label):
 
 
 plot("observed_index", "cpue.svg", "Standardised CPUE / first year")
-plot("SB_over_SB0", "biomass.svg", "Toy spawning biomass / unfished level")
+plot("SB_over_SB0", "biomass.svg", "Spawning biomass / unfished level")
 print('SYNTHESIS complete: four verified fits; comparison plots and tables; prepared-input records')
