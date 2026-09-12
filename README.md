@@ -1,7 +1,10 @@
-# Results synthesis
+# Assessment results summary
 
-Checks the assessment outputs, combines comparison tables and draws the figures.
+Compare assessment results in plots and tables.
 
-Part of the [CPUE workflow demonstration](https://github.com/kyuhank/cpue-actions-demo). The central runner retrieves a locked commit, supplies shared model utilities and records inputs, outputs and provenance. All example data are synthetic.
+- **Inputs:** Completed assessment outputs.
+- **Outputs:** Combined comparison tables and biomass plots.
 
-[HTML job outputs](https://kyuhank.github.io/cpue-demo-synthesis/). Results are selected by run ID and served from the recorded execution artifacts.
+Part of the [CPUE workflow demo](https://github.com/kyuhank/cpue-actions-demo), using synthetic data and toy models. Each run records the exact code commit and input/output hashes.
+
+[Run the demo](https://kyuhank.github.io/cpue-actions-demo/) · [View job outputs](https://kyuhank.github.io/cpue-demo-synthesis/)
